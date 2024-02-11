@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Text Analysis</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8f8;
+    color: #333;
+  }
+  .container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+  }
+  .analysis-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 20px;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+  }
+  .result-container {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #f8f9fa;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #007bff;
+    grid-column: 1 / -1;
+  }
+  .result {
+    margin-bottom: 10px;
+  }
+
+  #longestWords {
+    overflow: auto;
+    white-space: pre-wrap;
+  }
+
+  #historicalData {
+    overflow-y: auto;
+    max-height: 200px; /* Adjust the height as needed */
+  }
+
+  .fetch-button {
+    margin-top: auto;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%; 
+  }
+  .fetch-button:hover {
+    background-color: #0056b3;
+  }
+  .button-placeholder {
+    position: relative;
+    height: 40px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="analysis-container">
+    <h1>Text Analysis Results</h1>
+    <div class="result-container">
+      <div class="result" id="wordCount">Number of words: Loading...</div>
+      <div class="button-placeholder"></div>
+      <button class="fetch-button" onclick="fetchWordCountAndUpdateContent()">Fetch Word Count</button>
+    </div>
+    <div class="result-container">
+      <div class="result" id="charCount">Number of characters: Loading...</div>
+      <div class="button-placeholder"></div>
+      <button class="fetch-button" onclick="fetchCharCountAndUpdateContent()">Fetch Character Count</button>
+    </div>
+    <div class="result-container">
+      <div class="result" id="sentenceCount">Number of sentences: Loading...</div>
+      <div class="button-placeholder"></div>
+      <button class="fetch-button" onclick="fetchSentenceCountAndUpdateContent()">Fetch Sentence Count</button>
+    </div>
+    <div class="result-container">
+      <div class="result" id="paragraphCount">Number of paragraphs: Loading...</div>
+      <div class="button-placeholder"></div>
+      <button class="fetch-button" onclick="fetchParagraphCountAndUpdateContent()">Fetch Paragraph Count</button>
+    </div>
+    <div class="result-container">
+      <div class="result" id="longestWords">Longest word: Loading...</div>
+      <div class="button-placeholder"></div>
+      <button class="fetch-button" onclick="fetchLongestWordAndUpdateContent()">Fetch Longest Word</button>
+    </div>
+    <!-- New div for fetching historical data -->
+    <div class="result-container">
+      <div class="result" id="historicalData" style="max-height: 200px; overflow-y: auto;">Historical Data: Loading...</div>
+      <div class="button-placeholder"></div>
+      <button class="fetch-button" onclick="fetchHistoricalData()">Fetch Historical Data</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  async function fetchWordCountAndUpdateContent() {
+    try {
+      const wordCountRes = await fetch('http://localhost:5000/words');
+      const wordCountData = await wordCountRes.json();
+      document.getElementById('wordCount').innerText = `Number of words: ${wordCountData.words}`;
+    } catch (error) {
+      console.error('Error fetching word count:', error);
+    }
+  }
+
+  async function fetchCharCountAndUpdateContent() {
+    try {
+      const charCountRes = await fetch('http://localhost:5000/characters');
+      const charCountData = await charCountRes.json();
+      document.getElementById('charCount').innerText = `Number of characters: ${charCountData.characters}`;
+    } catch (error) {
+      console.error('Error fetching character count:', error);
+    }
+  }
+
+  async function fetchSentenceCountAndUpdateContent() {
+    try {
+      const sentenceCountRes = await fetch('http://localhost:5000/sentences');
+      const sentenceCountData = await sentenceCountRes.json();
+      document.getElementById('sentenceCount').innerText = `Number of sentences: ${sentenceCountData.sentences}`;
+    } catch (error) {
+      console.error('Error fetching sentence count:', error);
+    }
+  }
+
+  async function fetchParagraphCountAndUpdateContent() {
+    try {
+      const paragraphCountRes = await fetch('http://localhost:5000/paragraphs');
+      const paragraphCountData = await paragraphCountRes.json();
+      document.getElementById('paragraphCount').innerText = `Number of paragraphs: ${paragraphCountData.paragraphs}`;
+    } catch (error) {
+      console.error('Error fetching paragraph count:', error);
+    }
+  }
+
+  async function fetchLongestWordAndUpdateContent() {
+    try {
+      const longestWordRes = await fetch('http://localhost:5000/longest');
+      const longestWordData = await longestWordRes.json();
+      document.getElementById('longestWords').innerText = `Longest word: ${longestWordData.longestWord}`;
+    } catch (error) {
+      console.error('Error fetching longest word:', error);
+    }
+  }
+
+  async function fetchHistoricalData() {
+    try {
+      const historicalDataRes = await fetch('http://localhost:5000/history/history');
+      let historicalData = await historicalDataRes.json();
+      historicalData = historicalData.history
+      console.log(historicalData)
+      const historicalDataContainer = document.getElementById('historicalData');
+      historicalDataContainer.innerHTML = '';
+      historicalData.forEach(data => {
+        const paragraph = document.createElement('p');
+        paragraph.textContent = `Text: ${data.text}, Words: ${data.words}`;
+        historicalDataContainer.appendChild(paragraph);
+      });
+    } catch (error) {
+      console.error('Error fetching historical data:', error);
+    }
+  }
+</script>
+</body>
+</html>

@@ -2,7 +2,7 @@
 
 This repository contains a web application for text analysis. After pulling the repository, follow the steps below to set up and run the application.
 
-## Pull the repo and switch to "master" branch for the most updated code
+## Clone the repo and switch to "master" branch for the most updated code
 
 ## Setup
 

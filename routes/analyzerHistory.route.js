@@ -5,7 +5,6 @@ let history = async () => {
     try {
       result = await db.find()
         .then((data)=>{
-            console.log(data)
             return data
         })
         } catch (err) {

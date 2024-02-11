@@ -2,6 +2,8 @@
 
 This repository contains a web application for text analysis. After pulling the repository, follow the steps below to set up and run the application.
 
+## Pull the repo and switch to "master" branch for the most updated code
+
 ## Setup
 
 1. Run the following command to install the dependencies:
@@ -12,7 +14,7 @@ This repository contains a web application for text analysis. After pulling the 
 
 2. Ensure that the `.env` file is properly configured with necessary elements to connect it with the port and databases. Note that the `.env` file is not gitignored for this purpose.
 
-3. The main is the most updated branch.
+3. The #master is the most updated branch.
 
 ## Running the Application
 

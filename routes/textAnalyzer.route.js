@@ -9,20 +9,16 @@ let words = async () => {
         const trimmedText = data.trim()
         const words = trimmedText.split(/\s+/)
         const length = words.length
-        console.log("length:"+length)
         await db.findOne({'text':trimmedText})
             .then(data=>{
                 if(!data){
-                    console.log('not found')
                     const text = new db({
                         text: trimmedText
                     })
                     text.save()
                         .then(()=>{
-                            console.log('saved')
                             db.findOneAndUpdate({'text':trimmedText}, {'words':length})
                             .then((data)=>{
-                                console.log('updated saved')
                                 console.log(length)
                             }).catch((err)=>{
                                 console.log(err)

@@ -34,7 +34,7 @@ app.use('/paragraphs', textAnalyzer)
 app.use('/longest', textAnalyzer)
 
 const analyzeHistory = require('./routes/analyzerHistory.route') 
-app.use('/history', analyzeHistory)
+app.use('/record', analyzeHistory)
 
 
 

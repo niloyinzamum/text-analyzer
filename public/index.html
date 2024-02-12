@@ -167,7 +167,7 @@
 
   async function fetchHistoricalData() {
     try {
-      const historicalDataRes = await fetch('http://localhost:5000/history/history');
+      const historicalDataRes = await fetch('http://localhost:5000/record/history');
       let historicalData = await historicalDataRes.json();
       historicalData = historicalData.history
       console.log(historicalData)

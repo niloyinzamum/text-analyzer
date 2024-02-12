@@ -12,6 +12,10 @@ This repository contains a web application for text analysis. After pulling the 
     npm install
     ```
 
+    ```bash
+    node app.js
+    ```
+
 2. Ensure that the `.env` file is properly configured with necessary elements to connect it with the port and databases. Note that the `.env` file is not gitignored for this purpose.
 
 3. The #master is the most updated branch.
@@ -30,6 +34,14 @@ This repository contains a web application for text analysis. After pulling the 
 
 8. Press "Fetch History" to get analyzed history.
 
+## End Points
+1. http://localhost:5000/words
+2. http://localhost:5000/characters
+3. http://localhost:5000/sentences
+4. http://localhost:5000/paragraphs
+5. http://localhost:5000/longest
+6. http://localhost:5000/record/history
+
 ## Description
 
-This web application provides a user-friendly interface to analyze text input. It fetches various metrics such as word count, character count, sentence count, longest words, and historical data of analyzed texts. The application is built using Node.js, Express.js, and JavaScript for the backend, mongoDb (atlas cloud) for database and HTML, CSS, and JavaScript for the frontend.
+This web application provides a user-friendly interface to analyze text input. It fetches various metrics such as word count, character count, sentence count, longest words, and historical data of analyzed texts. The application is built using Node.js, Express.js, and JavaScript for the backend, mongoDb (atlas cloud) for database, morgan.js for request-response logging and HTML, CSS, and JavaScript for the frontend.
